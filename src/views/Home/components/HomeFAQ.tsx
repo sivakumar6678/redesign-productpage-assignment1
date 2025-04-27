@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 
-const FAQItem = ({ question, answer, isOpen, onClick }) => (
-    <div className="border-b border-indigo-100">
-		<button
+interface FAQItemProps {
+    question: string;
+    answer: string;
+    isOpen: boolean;
+    onClick: () => void;
+}
+
+const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onClick }) => (
+    <div className="border-b border-indigo-200">
+        <button
             onClick={onClick}
-            className="w-full py-2 px-0 md:px-4 flex items-center justify-between text-left transition-colors hover:bg-indigo-50/50 rounded-lg"
+            className="w-full py-4 px-4 flex items-center justify-between text-left transition-colors hover:bg-indigo-100 rounded-lg"
         >
-            <h3 className="text-[16px] leading-[1.2] font-medium text-gray-900 pr-8">{question}</h3>
+            <h3 className="text-lg leading-tight font-semibold text-gray-900 pr-8">{question}</h3>
             <div className={`flex-shrink-0 ml-2 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                <BiChevronDown className="w-5 h-5 text-indigo-600" />
+                <BiChevronDown className="w-6 h-6 text-indigo-600" />
             </div>
         </button>
 
         <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
         >
-            <div className="p-2 md:p-4 pt-0 text-gray-600">
+            <div className="p-4 text-gray-700 bg-indigo-50 rounded-lg shadow-md">
                 {answer}
             </div>
         </div>
@@ -25,7 +32,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }) => (
 );
 
 const FAQ = () => {
-    const [openIndex, setOpenIndex] = useState(0);
+    const [openIndex, setOpenIndex] = useState(-1);
 
     const faqData = [
         {
@@ -72,21 +79,37 @@ const FAQ = () => {
             que: 'How does the platform help me attract more patients?',
             ans: 'The platform allows me to create a custom, SEO-optimized website, manage patient communication, and build a strong online reputation, all of which help me attract and retain more patients.',
         },
+        {
+            que: 'What payment options are available for patients?',
+            ans: 'The platform supports various payment methods, including credit cards, insurance billing, and online payment gateways, making it convenient for patients to settle their bills.',
+        },
+        {
+            que: 'Can I track my patient engagement through the platform?',
+            ans: 'Yes, the platform provides analytics and reporting tools that allow me to track patient engagement, appointment history, and communication patterns, helping me improve my services.',
+        },
+        {
+            que: 'Is there a mobile app for the platform?',
+            ans: 'Yes, there is a mobile app that allows me to manage my healthcare services on the go, ensuring I can stay connected with my patients anytime, anywhere.',
+        },
+        {
+            que: 'How does the platform ensure data privacy?',
+            ans: 'The platform employs advanced encryption and security protocols to protect patient data, ensuring compliance with HIPAA and other privacy regulations.',
+        },
     ];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-16 px-2 md:px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-5xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
                         Frequently Asked Questions
                     </h1>
-                    <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full" />
+                    <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full" />
                 </div>
 
                 {/* FAQ Items */}
-                <div className="space-y-2 bg-white rounded-2xl shadow-xl p-6">
+                <div className="space-y-4 bg-white rounded-2xl shadow-xl p-6">
                     {faqData.map((faq, index) => (
                         <FAQItem
                             key={index}
