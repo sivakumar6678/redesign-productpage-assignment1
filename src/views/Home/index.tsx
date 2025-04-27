@@ -5,6 +5,7 @@ import HomeFAQs from './components/HomeFAQ';
 import ContactForm from './components/ContactForm';
 import MainFooter from './components/MainFooter';
 import InfoSection from './components/InfoSection';
+import ClaimLandingSection from './components/ClaimLandingSection';
 
 const Home: React.FC = () => {
     const contactRef = useRef(null);
@@ -49,6 +50,11 @@ const Home: React.FC = () => {
                     contactRef={contactRef}
                     aboutRef={aboutRef}
                 />
+
+                {/* Claim Landing section  */}
+                <div className="!bg-[#eff6ff] relative">
+                    <ClaimLandingSection />
+                </div>
 
                 {/* Features Section */}
                 <div className="!bg-[#eff6ff] relative">
