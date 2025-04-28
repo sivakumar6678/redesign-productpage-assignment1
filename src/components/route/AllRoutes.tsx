@@ -3,11 +3,11 @@ import PublicRoute from './PublicRoute'
 import AuthorityGuard from './AuthorityGuard'
 import AppRoute from './AppRoute'
 import PageContainer from '@/components/template/PageContainer'
-import { protectedRoutes, publicRoutes } from '@/configs/routes.config'
 import appConfig from '@/configs/app.config'
 import { useAuth } from '@/auth'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import type { LayoutType } from '@/@types/theme'
+import { protectedRoutes, publicRoutes } from '@/configs/routes.config'  // ✅ ONLY import protectedRoutes and publicRoutes
 
 interface ViewsProps {
     pageContainerType?: 'default' | 'gutterless' | 'contained'
@@ -25,9 +25,10 @@ const AllRoutes = (props: AllRoutesProps) => {
         <Routes>
             <Route path="/" element={<ProtectedRoute />}>
                 <Route
-                    path="/"
+                    path="/sign-in"
                     element={<Navigate replace to={authenticatedEntryPath} />}
                 />
+                {/* Render protected + shared routes */}
                 {protectedRoutes.map((route, index) => (
                     <Route
                         key={route.key + index}
@@ -50,10 +51,12 @@ const AllRoutes = (props: AllRoutesProps) => {
                 ))}
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
+
             <Route path="/" element={<PublicRoute />}>
-                {publicRoutes.map((route) => (
+                {/* Render public + shared routes */}
+                {publicRoutes.map((route, index) => (
                     <Route
-                        key={route.path}
+                        key={route.key + index}
                         path={route.path}
                         element={
                             <AppRoute

@@ -96,30 +96,38 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
+
           {/* Visual Column */}
-          <div className="relative order-first lg:order-none">
-            <div className="relative aspect-square w-full max-w-xl mx-auto">
+          <div className="relative  hidden lg:block">
+            <div className="relative aspect-video w-full max-w-7xl mx-auto">
               {/* Mockup Frame */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-[#a855f7]/10 rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
                 {/* Screen Content */}
                 <div className="absolute inset-4 rounded-xl bg-[#020617] flex items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="inline-block mb-4 p-3 rounded-lg bg-primary/10">
-                      <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">AI Healthcare Dashboard</h3>
-                    <p className="text-gray-400 text-sm">Real-time patient management</p>
+                  <div className="w-full" style={{ maxWidth: "1920px", maxHeight: "1080px" }}>
+                    <iframe
+                      className="w-full 2xl:h-[380px] xl:h-[300px] lg:h-[210px] rounded-xl"
+                      src="https://www.youtube.com/embed/xQl8i2sO_Ls?list=TLGG0PJLA9GwZ7syODA0MjAyNQ"
+                      title="Medical Report Demo gogetwell.ai"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
                   </div>
                 </div>
               </div>
-              
+
               {/* Floating Elements */}
               <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-[#00f0ff] opacity-20 blur-xl"></div>
               <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-[#a855f7] opacity-20 blur-xl"></div>
             </div>
           </div>
+
+
+
+
+
         </div>
       </div>
     </div>
