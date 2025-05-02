@@ -7,13 +7,19 @@ const { unAuthenticatedEntryPath } = appConfig
 
 const ProtectedRoute = () => {
     const { authenticated } = useAuth()
-
     const { pathname } = useLocation()
 
-    const getPathName =
-        pathname === '/' ? '' : `?${REDIRECT_URL_KEY}=${location.pathname}`
+    // For paths other than root, store the path for redirect after login
+    const getPathName = 
+        pathname === '/' ? '' : `?${REDIRECT_URL_KEY}=${pathname}`
 
     if (!authenticated) {
+        // If the user is trying to access the home page, let them through
+        // as we want the home page to be accessible to everyone
+        if (pathname === '/') {
+            return <Outlet />
+        }
+        
         return (
             <Navigate
                 replace

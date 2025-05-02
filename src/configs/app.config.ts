@@ -11,7 +11,7 @@ const appConfig: AppConfig = {
     apiPrefix: '/api',
     authenticatedEntryPath: '/',
     unAuthenticatedEntryPath: '/',
-    locale: 'en',
+    locale: '',
     accessTokenPersistStrategy: 'cookies',
     enableMock: true,
 }

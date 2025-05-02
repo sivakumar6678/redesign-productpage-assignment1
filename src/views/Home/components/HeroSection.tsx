@@ -107,7 +107,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   <div className="w-full" style={{ maxWidth: "1920px", maxHeight: "1080px" }}>
                     <iframe
                       className="w-full 2xl:h-[380px] xl:h-[300px] lg:h-[210px] rounded-xl"
-                      src="https://www.youtube.com/embed/xQl8i2sO_Ls?list=TLGG0PJLA9GwZ7syODA0MjAyNQ"
+                      src="https://www.youtube.com/embed/xQl8i2sO_Ls"
                       title="Medical Report Demo gogetwell.ai"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

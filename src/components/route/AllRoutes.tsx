@@ -3,6 +3,7 @@ import PublicRoute from './PublicRoute'
 import AuthorityGuard from './AuthorityGuard'
 import AppRoute from './AppRoute'
 import PageContainer from '@/components/template/PageContainer'
+import LayoutBase from '@/components/template/LayoutBase'
 import appConfig from '@/configs/app.config'
 import { useAuth } from '@/auth'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -19,25 +20,19 @@ type AllRoutesProps = ViewsProps
 const { authenticatedEntryPath } = appConfig
 
 const AllRoutes = (props: AllRoutesProps) => {
-    const { user } = useAuth()
+    const { user, authenticated } = useAuth()
 
     return (
         <Routes>
-            <Route path="/" element={<ProtectedRoute />}>
-                <Route
-                    path="/sign-in"
-                    element={<Navigate replace to={authenticatedEntryPath} />}
-                />
-                {/* Render protected + shared routes */}
-                {protectedRoutes.map((route, index) => (
+            {/* Public routes - accessible to everyone */}
+            <Route element={<PublicRoute />}>
+                {/* Render public + shared routes */}
+                {publicRoutes.map((route, index) => (
                     <Route
                         key={route.key + index}
                         path={route.path}
                         element={
-                            <AuthorityGuard
-                                userAuthority={user.authority}
-                                authority={route.authority}
-                            >
+                            <LayoutBase type={props.layout || 'classic'}>
                                 <PageContainer {...props} {...route.meta}>
                                     <AppRoute
                                         routeKey={route.key}
@@ -45,28 +40,41 @@ const AllRoutes = (props: AllRoutesProps) => {
                                         {...route.meta}
                                     />
                                 </PageContainer>
-                            </AuthorityGuard>
+                            </LayoutBase>
                         }
                     />
                 ))}
-                <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
-            <Route path="/" element={<PublicRoute />}>
-                {/* Render public + shared routes */}
-                {publicRoutes.map((route, index) => (
-                    <Route
-                        key={route.key + index}
-                        path={route.path}
-                        element={
-                            <AppRoute
-                                routeKey={route.key}
-                                component={route.component}
-                                {...route.meta}
-                            />
-                        }
-                    />
-                ))}
+            {/* Protected routes - only for authenticated users */}
+            <Route element={<ProtectedRoute />}>
+                {/* Render protected routes (excluding shared routes which are already handled above) */}
+                {protectedRoutes
+                    .filter(route => !publicRoutes.some(pr => pr.path === route.path))
+                    .map((route, index) => (
+                        <Route
+                            key={route.key + index}
+                            path={route.path}
+                            element={
+                                <AuthorityGuard
+                                    userAuthority={user.authority}
+                                    authority={route.authority}
+                                >
+                                    <LayoutBase type={props.layout || 'classic'}>
+                                        <PageContainer {...props} {...route.meta}>
+                                            <AppRoute
+                                                routeKey={route.key}
+                                                component={route.component}
+                                                {...route.meta}
+                                            />
+                                        </PageContainer>
+                                    </LayoutBase>
+                                </AuthorityGuard>
+                            }
+                        />
+                    ))
+                }
+                <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
         </Routes>
     )

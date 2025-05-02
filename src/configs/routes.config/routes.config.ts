@@ -5,11 +5,21 @@ import othersRoute from './othersRoute'
 import sharedRoutes from './sharedRoutes'
 import type { Routes } from '@/@types/routes'
 
+/**
+ * Public routes configuration
+ * These routes are accessible to unauthorized users
+ * Includes shared routes that are accessible to both authorized and unauthorized users
+ */
 export const publicRoutes: Routes = [
     ...authRoute,
     ...sharedRoutes
 ]
 
+/**
+ * Protected routes configuration
+ * These routes are accessible only to authorized users
+ * Includes shared routes that are accessible to both authorized and unauthorized users
+ */
 export const protectedRoutes: Routes = [
     ...sharedRoutes,
     {
@@ -52,6 +62,5 @@ export const protectedRoutes: Routes = [
         ),
         authority: [],
     },
-    ...othersRoute,
-    ...sharedRoutes,
+    ...othersRoute
 ]
